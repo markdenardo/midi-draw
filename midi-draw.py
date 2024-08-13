@@ -4,11 +4,11 @@ from midiutil import MIDIFile
 # Load the image
 image_path = '/Users/mdn/Desktop/python-projects/AUG/midi-draw/images/test.png'  # Path to your PNG file
 image = Image.open(image_path)
-
+print(image_path)
 # Convert to grayscale for easier processing
 gray_image = image.convert('L')
 width, height = gray_image.size
-
+print("width",width,"height",height,"gray_image.size",gray_image.size)
 def detect_lines(image):
     """Detects lines and their thicknesses in a grayscale image."""
     width, height = image.size
@@ -36,15 +36,18 @@ def detect_lines(image):
     return line_data
 
 lines = detect_lines(gray_image)
+print("lines",lines)
 
 # Create a MIDI file with 4 tracks (voices)
 midi = MIDIFile(4)
+print("midi",midi)
 
 # Set track properties
 for track in range(4):
     midi.addTrackName(track, time=0, trackName=f"Voice {track+1}")
     midi.addTempo(track, time=0, tempo=120)
 
+print("track",track)
 def map_lines_to_midi(midi, lines):
     """Maps detected lines to MIDI notes."""
     for (y, start_x, width) in lines:
